@@ -3,6 +3,8 @@ let context = canvas.getContext('2d');
 
 let snakeX = 200;
 let snakeY = 200;
+let direction = null;
+
 
 function drawBackround() {
     context.fillStyle = "black";
@@ -10,7 +12,6 @@ function drawBackround() {
 }
 
 
-drawSnake();
 
 function drawSnake(){
     context.fillStyle = "white";
@@ -18,13 +19,35 @@ function drawSnake(){
 }
 
 function update () {
-    snakeX = snakeX + 20;
+    if(direction == 'right'){
+        snakeX = snakeX + 20;
+    } else if(direction == 'left') {
+        snakeX = snakeX - 20;
+    }else if(direction == 'up') {
+        snakeY = snakeY - 20;
+    }else if(direction == 'down') {
+        snakeY = snakeY + 20;
+    }
+
     console.log(snakeX)
     drawBackround();
     drawSnake();
-    
+}
+
+function changeDirection(event){
+    // console.log('direction');
+    if(event.code == 'ArrowUp'){
+        direction = 'up';
+    } else if( event.code == 'ArrowRight'){
+        direction = 'right';
+    }else if( event.code == 'ArrowLeft'){
+        direction = 'left';
+    }else if( event.code == 'ArrowDown'){
+        direction = 'down';
+    }
 }
 
 drawBackround();
 drawSnake();
 setInterval(update, 1000);
+addEventListener('keydown', changeDirection);
